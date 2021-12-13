@@ -14,6 +14,7 @@ namespace CabInvoiceGeneratorTests
         [Test]
         public void GivenDistanceAndTime_WhenCalculate_ShouldReturnTotalFare()
         {
+
             InvoiceGenerator invoice = new InvoiceGenerator(5.0, 2);
             double result = invoice.CalculateCabFare();
             Assert.AreEqual(result, 52);
