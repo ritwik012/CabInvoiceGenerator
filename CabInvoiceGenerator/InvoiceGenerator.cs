@@ -9,21 +9,7 @@ namespace CabInvoiceGenerator
     {
         public double distance;
         public int time;
-        private double v1;
-        private int v2;
         public const double COST_PER_KILOMETER = 10.0, COST_PER_MINUTE = 1.0, MINIMUM_FARE = 5.0;
-
-        public InvoiceGenerator(double v1, int v2)
-        {
-            this.v1 = v1;
-            this.v2 = v2;
-        }
-
-        public double CalculateCabFare()
-        {
-            throw new NotImplementedException();
-        }
-
         public double CalculateCabFare(double distance, int time)
         {
             double totalFare = (distance * COST_PER_KILOMETER) + (time * COST_PER_MINUTE);
@@ -41,6 +27,15 @@ namespace CabInvoiceGenerator
                 totalFare += this.CalculateCabFare(data.distance, data.time);
             }
             return totalFare;
+        }
+        public InvoiceSummary CalculateInvoiceSummary(Ride[] ride)
+        {
+            double totalFare = this.CalculateCabFare(ride);
+            InvoiceSummary summary = new InvoiceSummary();
+            summary.totalFare = totalFare;
+            summary.totalNumberOfRides = ride.Count();
+            summary.CalulateAverageFare();
+            return summary;
         }
     }
 }
